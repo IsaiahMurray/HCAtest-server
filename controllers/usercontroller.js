@@ -1,15 +1,21 @@
+const log = console.log;
+const chalk = require("chalk");
 const router = require("express").Router();
-const User = require("../app").import("../models/user");
+const Sequelize = require('sequelize');
+const sequelize = new Sequelize("postgres://postgres:weewoo123@localhost:5432/hca_database");
+const { User, List } = require('../models');
+
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
+
 
 router.post("/create", function (req, res) {
   /**********************************
    ********   USER CREATE   *********
    *********************************/
   User.create({
-    email: req.body.user.email,
-    password: bcrypt.hashSync(req.body.user.password, 13),
+    email: req.body.email,
+    password: bcrypt.hashSync(req.body.password, 13),
   })
     .then(function createSuccess(user) {
       let token = jwt.sign(
@@ -34,12 +40,12 @@ router.post("/create", function (req, res) {
 router.post("/login", function (req, res) {
   User.findOne({
     where: {
-      email: req.body.user.email,
+      email: req.body.email,
     },
   })
     .then(function loginSuccess(user) {
       if (user) {
-        bcrypt.compare(req.body.user.password, user.password, function (
+        bcrypt.compare(req.body.password, user.password, function (
           err,
           matches
         ) {

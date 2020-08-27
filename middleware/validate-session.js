@@ -1,8 +1,6 @@
 const jwt = require('jsonwebtoken');
-const User = require('../app'); // <= This is proabbly an issue
-/**********************************
-********VALIDATE SESSSION*********
-*********************************/
+const { User } = require('../models');
+require("dotenv").config();
 
 const validateSession = (req, res, next) => {
     const token = req.headers.authorization; 
