@@ -11,7 +11,6 @@ const middlewares = require('./middleware');
 app.use(express.json());
 
 app.use('/user', controllers.User);
-//middlewares.ValidateSession
 
 //Controller routes
 app.use('/list', middlewares.ValidateSession, controllers.List);
@@ -25,4 +24,6 @@ database.authenticate()
 }))
 .catch((e) => {
 console.log('[server]: Server yeeted.. weewoo..')
-})
+});
+
+app.use(middlewares.Headers);
