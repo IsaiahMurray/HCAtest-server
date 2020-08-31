@@ -1,8 +1,9 @@
+require('dotenv').config();
 const log = console.log;
 const chalk = require("chalk");
 const router = require("express").Router();
 const Sequelize = require('sequelize');
-const sequelize = new Sequelize("postgres://postgres:weewoo123@localhost:5432/hca_database");
+const sequelize = new Sequelize(process.env.DATABASE_URL);
 const { User, List } = require('../models');
 
 const jwt = require("jsonwebtoken");
