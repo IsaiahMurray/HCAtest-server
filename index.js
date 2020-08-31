@@ -1,3 +1,4 @@
+require('dotenv').config();
 const chalk = require("chalk");
 const log = console.log;
 
@@ -19,8 +20,8 @@ app.use('/task', middlewares.ValidateSession, controllers.Task);
 //Satartup
 database.authenticate()
 .then(() => database.sync())
-.then(app.listen(3000, () => {
-    console.log('Listening on 3000');
+.then(app.listen(process.env.PORT, () => {
+    console.log(`Listening on ${process.env.PORT}`);
 }))
 .catch((e) => {
 console.log('[server]: Server yeeted.. weewoo..')

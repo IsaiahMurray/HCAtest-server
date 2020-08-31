@@ -1,10 +1,9 @@
+require('dotenv').config();
 const log = console.log;
 const chalk = require("chalk");
 
 const Sequelize = require("sequelize");
 
-const db = new Sequelize(
-  "postgres://postgres:weewoo123@localhost:5432/hca_database"
-);
+const db = new Sequelize(process.env.DATABASE_URL);
 
 module.exports = db;
