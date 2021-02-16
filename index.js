@@ -24,7 +24,7 @@ database.authenticate()
     console.log(`Listening on ${process.env.PORT}`);
 }))
 .catch((e) => {
-console.log('[server]: Server yeeted.. weewoo..')
+console.log('[server]: Server yeeted.. weewoo..', e)
 });
 
 app.use(middlewares.Headers);
