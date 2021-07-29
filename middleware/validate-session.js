@@ -1,5 +1,5 @@
 const jwt = require('jsonwebtoken');
-const { User } = require('../models');
+const { UserModel } = require('../models');
 require("dotenv").config();
 
 const validateSession = (req, res, next) => {
@@ -10,7 +10,7 @@ const validateSession = (req, res, next) => {
     } else {
       jwt.verify(token, process.env.JWT_SECRET, (err, decodeToken) => {
         if(!err && decodeToken){
-          User.findOne({
+          UserModel.findOne({
             where: {
               id: decodeToken.id
             }

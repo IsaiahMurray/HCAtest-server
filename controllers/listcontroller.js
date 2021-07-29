@@ -6,16 +6,16 @@ router.get("/test", function (req, res) {
   res.send("Hey!! This is the list route!");
 });
 
-router.post("/create", (req, res) => {
-  const list = {
-    title: req.body.title,
-    description: req.body.description,
-    owner: req.user.id,
-  };
-  List.create(list)
-    .then((list) => res.status(200).json(list))
-    .catch((err) => res.status(500).json({ error: err }));
-});
+// router.post("/create", (req, res) => {
+//   const list = {
+//     title: req.body.title,
+//     description: req.body.description,
+//     owner: req.user.id,
+//   };
+//   List.create(list)
+//     .then((list) => res.status(200).json(list))
+//     .catch((err) => res.status(500).json({ error: err }));
+// });
 
 router.post("/create", async(req, res) => {
 

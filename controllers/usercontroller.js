@@ -4,7 +4,7 @@ const chalk = require("chalk");
 const router = require("express").Router();
 const Sequelize = require('sequelize');
 const sequelize = new Sequelize(process.env.DATABASE_URL);
-const { User, List } = require('../models');
+const { UserModel, ListModel } = require('../models');
 
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
@@ -14,7 +14,7 @@ router.post("/create", function (req, res) {
   /**********************************
    ********   USER CREATE   *********
    *********************************/
-  User.create({
+   UserModel.create({
     email: req.body.email,
     password: bcrypt.hashSync(req.body.password, 13),
   })
@@ -39,7 +39,7 @@ router.post("/create", function (req, res) {
  *********************************/
 
 router.post("/login", function (req, res) {
-  User.findOne({
+  UserModel.findOne({
     where: {
       email: req.body.email,
     },
