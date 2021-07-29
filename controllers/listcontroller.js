@@ -29,7 +29,7 @@ router.post("/create", async(req, res) => {
       })
     );
   }
-})
+});
 
 router.get("/", (req, res) => {
   List.findAll({

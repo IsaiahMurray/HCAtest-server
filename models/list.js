@@ -1,7 +1,7 @@
 const { DataTypes } = require("sequelize");
 const db = require("../db");
 
-const List = db.define(
+const ListModel = db.define(
   "list",
   {
     title: {
@@ -10,9 +10,10 @@ const List = db.define(
     },
     description: {
       type: DataTypes.STRING,
+      allowNull: true
     }
   },
   {}
 );
 
-module.exports = List;
+module.exports = ListModel;
