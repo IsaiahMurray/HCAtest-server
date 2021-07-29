@@ -1,7 +1,7 @@
 const { DataTypes } = require("sequelize");
 const db = require("../db");
 
-const User = db.define(
+const UserModel = db.define(
   "user",
   {
     email: {
@@ -17,4 +17,4 @@ const User = db.define(
   {}
 );
 
-module.exports = User;
+module.exports = UserModel;
