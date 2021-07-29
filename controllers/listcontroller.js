@@ -63,7 +63,7 @@ router.get("/", async (req, res) => {
 //! GET ALL TASKS WITH SINGLE CORRESPONDING LIST BY ID
 router.get("/tasklist/:listId", async (req, res) => {
   try {
-    const list = await ListModel.findAll({
+    const list = await ListModel.findOne({
       where: { owner: req.user.id }
     })
 
