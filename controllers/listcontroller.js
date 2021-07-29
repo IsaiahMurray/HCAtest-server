@@ -60,26 +60,38 @@ router.get("/", async (req, res) => {
 });
 
 
-//! GET ALL TASKS WITH CORRESPONDING LIST BY ID
-router.get("/tasklist", async (req, res) => {
+//! GET ALL TASKS WITH SINGLE CORRESPONDING LIST BY ID
+router.get("/tasklist/:listId", async (req, res) => {
   try {
-    const allLists = await ListModel.findAll({
+    const list = await ListModel.findAll({
       where: { owner: req.user.id }
     })
 
-    if (allLists.length === 0 || null) {
-      const tasks = await TaskModel.findAll({
-        where: {}
+    if (list.length === 0 || null) {
+      return res.status(204).json({
+        message: "You do not have any lists yet. Go make some!",
       })
     } else {
-     
+      const tasks = await TaskModel.findAll({
+        where: {listId: req.params.listId}
+      })
+      if(tasks.length === 0 || null){
+        return res.status(200).json({
+          message: "You do not have any tasks for this list yet. Go make some!",
+          list
+        })
+      } else{
+        return res.status(200).json({
+          message: "Lists and Tasks have successfully been retrieved!",
+          list,
+          tasks
+        })
+      }
     }
-
-
 
   } catch (err) {
     res.status(500).json({
-      message: `Lists could not be created: ${err}`,
+      message: `Lists and tasks could not be retrieved: ${err}`,
     });
   }
 });
