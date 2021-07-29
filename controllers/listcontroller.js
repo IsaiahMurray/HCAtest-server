@@ -25,11 +25,13 @@ router.post("/create", async(req, res) => {
       description: description,
       owner: req.user.id
     }
+
   try{
     const newList = await ListModel.create(listEntry);
 
     res.status(200).json({
-
+      message: "New list has successfully been created!",
+      newList
     })
   } catch(err) {
 
