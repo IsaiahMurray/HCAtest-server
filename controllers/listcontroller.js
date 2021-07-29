@@ -1,6 +1,5 @@
 const router = require("express").Router();
-const List = require("../models").List;
-const Task = require("../models").Task;
+const {ListModel, TaskModel} = require("../models");
 
 router.get("/test", function (req, res) {
   res.send("Hey!! This is the list route!");
@@ -19,8 +18,14 @@ router.post("/create", (req, res) => {
 
 router.post("/create", async(req, res) => {
 
+    const {title, description} = req.body;
+    const newList = {
+      title: title,
+      description: description,
+      owner: req.user.id
+    }
   try{
-
+    List
   } catch(err) {
 
   }
