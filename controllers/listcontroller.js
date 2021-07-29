@@ -1,5 +1,6 @@
 const router = require("express").Router();
 const {ListModel, TaskModel} = require("../models");
+const chalk = require("chalk");
 
 router.get("/test", function (req, res) {
   res.send("Hey!! This is the list route!");
@@ -19,13 +20,17 @@ router.post("/create", (req, res) => {
 router.post("/create", async(req, res) => {
 
     const {title, description} = req.body;
-    const newList = {
+    const listEntry = {
       title: title,
       description: description,
       owner: req.user.id
     }
   try{
-    List
+    const newList = await ListModel.create(listEntry);
+
+    res.status(200).json({
+
+    })
   } catch(err) {
 
   }
