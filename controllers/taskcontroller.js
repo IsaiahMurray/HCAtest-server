@@ -1,5 +1,5 @@
 const router = require("express").Router();
-const { Task } = require('../models');
+const { TaskModel } = require('../models');
 
 router.get('/test', function(req, res){
     res.send('Hey!! This is the task route!')
@@ -11,7 +11,7 @@ router.post('/create/:listId', (req, res) => {
         owner: req.user.id,
         listId: Number(req.params.listId)
     }
-    Task.create(task)
+    TaskModel.create(task)
     .then(task => res.status(200).json(task))
     .catch(err => {
         console.log(err)
@@ -26,7 +26,7 @@ router.put('/update/:id', (req, res) => {
 
     const query = { where: { id: req.params.id }}
 
-    Task.update(task, query)
+    TaskModel.update(task, query)
     .then(list => res.status(200).json({message: "Your task has been updated!", list}))
     .catch(err => res.status(500).json({error: err}))
 });
@@ -34,7 +34,7 @@ router.put('/update/:id', (req, res) => {
 router.delete("/delete/:id", (req, res) => {
     const query = { where: { id: req.params.id } };
   
-    Task.destroy(query)
+    TaskModel.destroy(query)
       .then((task) => res.status(200).json({ message: "Yeet that Task!" }))
       .catch((err) => res.status(500).json({ error: err }));
   });

@@ -68,15 +68,15 @@ router.get("/tasklist", async (req, res) => {
     })
 
     if (allLists.length === 0 || null) {
-      return res.status(204).json({
-        message: "You do not have any lists yet. Go make some!",
+      const tasks = await TaskModel.findAll({
+        where: {}
       })
     } else {
-      return res.status(200).json({
-        message: "Lists have successfully been retrieved",
-        allLists,
-      });
+     
     }
+
+
+
   } catch (err) {
     res.status(500).json({
       message: `Lists could not be created: ${err}`,
