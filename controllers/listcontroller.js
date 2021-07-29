@@ -34,7 +34,11 @@ router.post("/create", async(req, res) => {
       newList
     })
   } catch(err) {
-
+    chalk.redBright(
+      res.status(500).json({
+        message: `List could not be created: ${err}`,
+      })
+    );
   }
 })
 
