@@ -30,30 +30,16 @@ router.post("/create", async (req, res) => {
   }
 });
 
-// router.get("/", (req, res) => {
-//   List.findAll({
-//     where: { owner: req.user.id },
-//   })
-//     .then((lists) => {
-//       if (lists.length === 0 || null) {
-//         return res.status(200).json("You do not have any lists");
-//       } else {
-//         res.status(200).json(lists);
-//       }
-//     })
-//     .catch((err) => res.status(500).json({ error: err }));
-// });
-
-router.post("/", async (req, res) => {
+router.get("/", async (req, res) => {
   try {
     const allLists = await ListModel.findAll({
       where: { owner: req.user.id }
-    });
+    })
 
     if (allLists.length === 0 || null) {
       return res.status(204).json({
         message: "You do not have any lists yet. Go make some!",
-      });
+      })
     } else {
       return res.status(200).json({
         message: "Lists have successfully been retrieved",
