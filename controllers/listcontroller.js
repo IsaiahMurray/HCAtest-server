@@ -17,6 +17,15 @@ router.post("/create", (req, res) => {
     .catch((err) => res.status(500).json({ error: err }));
 });
 
+router.post("/create", async(req, res) => {
+
+  try{
+
+  } catch(err) {
+
+  }
+})
+
 router.get("/", (req, res) => {
   List.findAll({
     where: { owner: req.user.id },

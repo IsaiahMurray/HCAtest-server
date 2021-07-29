@@ -8,6 +8,7 @@ router.get('/test', function(req, res){
 router.post('/create/:listId', (req, res) => {
     const task = {
         description: req.body.description,
+        owner: req.user.id,
         listId: Number(req.params.listId)
     }
     Task.create(task)

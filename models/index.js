@@ -1,28 +1,28 @@
-const User = require('./user');
-const Task = require('./task');
-const List = require('./list');
+const UserModel = require('./user');
+const TaskModel = require('./task');
+const ListModel = require('./list');
 
 //Associations
-User.hasMany(List, {
+UserModel.hasMany(ListModel, {
     as: 'lists',
     onDelete: 'CASCADE',
     foreignKey:'owner'
 });
-User.hasMany(Task, {
+UserModel.hasMany(TaskModel, {
     foreignKey: 'owner'
 });
 
-List.hasMany(Task, {
+ListModel.hasMany(TaskModel, {
     as: 'tasks',
     onDelete: 'CASCADE',
     foreignKey:'listId'
 });
 
-List.belongsTo(User);
-Task.belongsTo(List);
+ListModel.belongsTo(UserModel);
+TaskModel.belongsTo(ListModel);
 
 module.exports ={
-    User,
-    Task,
-    List
+    UserModel,
+    TaskModel,
+    ListModel
 };
