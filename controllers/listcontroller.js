@@ -31,18 +31,48 @@ router.post("/create", async(req, res) => {
   }
 });
 
-router.get("/", (req, res) => {
-  List.findAll({
-    where: { owner: req.user.id },
-  })
-    .then((lists) => {
-      if (lists.length === 0 || null) {
-        return res.status(200).json("You do not have any lists");
-      } else {
-        res.status(200).json(lists);
-      }
+// router.get("/", (req, res) => {
+//   List.findAll({
+//     where: { owner: req.user.id },
+//   })
+//     .then((lists) => {
+//       if (lists.length === 0 || null) {
+//         return res.status(200).json("You do not have any lists");
+//       } else {
+//         res.status(200).json(lists);
+//       }
+//     })
+//     .catch((err) => res.status(500).json({ error: err }));
+// });
+
+router.post("/", async(req, res) => {
+try{
+  const allLists = await ListModel.findAll({
+    where: { owner: req.user.id }
+  });
+
+  if(allLists.length === 0){
+    return res.status(204).json({
+      message: "You do not have any lists yet. Go make some!"
     })
-    .catch((err) => res.status(500).json({ error: err }));
+  } else {
+    return res.status(200).json({
+      message: "Lists have successfully been retrieved",
+      allLists
+    })
+  }
+
+  res.status(200).json({
+    message: "All lists have successfully been retrieved!",
+    allLists
+  })
+} catch(err) {
+  
+    res.status(500).json({
+      message: `Lists could not be created: ${err}`,
+    })
+  
+}
 });
 
 router.get("/:title", (req, res) => {
