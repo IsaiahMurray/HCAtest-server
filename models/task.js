@@ -1,7 +1,7 @@
 const { DataTypes } = require("sequelize");
 const db = require("../db");
 
-const Task = db.define(
+const TaskModel = db.define(
   "task",
   {
     description: {
@@ -11,4 +11,4 @@ const Task = db.define(
   {}
 );
 
-module.exports = Task;
+module.exports = TaskModel;
