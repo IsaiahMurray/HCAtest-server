@@ -34,21 +34,36 @@ router.put("/update/:id", async (req, res) => {
   };
 
   const query = { where: { id: req.params.id } };
+  try {
+    const updatedTask = await TaskModel.update(task, query);
 
-  TaskModel.update(task, query)
-    .then((list) =>
-      res.status(200).json({ message: "Your task has been updated!", list })
-    )
-    .catch((err) => res.status(500).json({ error: err }));
+    res.status(200).json({
+      message: "Task has successfully been updated!",
+      updatedTask,
+    });
+  } catch (err) {
+    res.status(500).json({
+      message: `Could not update task: ${err}`,
+    });
+  }
 });
 
 //! DELETE TASK BY ID
-router.delete("/delete/:id", (req, res) => {
+router.delete("/delete/:id", async (req, res) => {
   const query = { where: { id: req.params.id } };
 
-  TaskModel.destroy(query)
-    .then((task) => res.status(200).json({ message: "Yeet that Task!" }))
-    .catch((err) => res.status(500).json({ error: err }));
+  try {
+    const deletedTask = TaskModel.destroy(query);
+
+    res.status(200).json({
+      message: "Your task has successfully been destroyed!",
+      deletedTask,
+    });
+  } catch (err) {
+    res.status(500).json({
+      message: `Could not delete task: ${err}`,
+    });
+  }
 });
 
 module.exports = router;
