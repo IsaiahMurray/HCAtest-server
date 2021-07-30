@@ -31,14 +31,11 @@ database
           `[Server: ] App is listening on Port ${process.env.PORT}`
         )
       );
-      //   console.log(`[Server: ] App is listening on Port ${process.env.PORT}`);
     });
   })
   .catch((err) => {
     console.log(chalk.redBright("[Server: ] Server Yeeted"));
     console.error(chalk.redBright(err));
-    // console.log("[Server: ] Server Crashed");
-    // console.error(err);
   });
 
 app.use(middlewares.Headers);

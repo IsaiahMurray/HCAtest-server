@@ -1,6 +1,4 @@
 require('dotenv').config();
-const log = console.log;
-const chalk = require("chalk");
 
 const Sequelize = require("sequelize");
 
