@@ -81,14 +81,14 @@ router.put("/edit/:listId", async (req, res) => {
   const { title, description } = req.body;
 
   try {
-    const updateList = await ListModel.update(
+    const updatedList = await ListModel.update(
       { title, description },
       { where: { id: req.params.listId, owner: req.user.id } }
     );
 
     res.status(200).json({
       message: "List has been updated!",
-      listEntry,
+      updatedList,
     });
   } catch (err) {
     res.status(500).json({
