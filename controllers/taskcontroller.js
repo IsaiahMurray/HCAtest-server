@@ -53,14 +53,14 @@ router.delete("/delete/:id", async (req, res) => {
   const query = { where: { id: req.params.id } };
 
   try {
-    const deletedTask = TaskModel.destroy(query);
+    TaskModel.destroy(query);
 
     res.status(200).json({
-      message: "Your task has successfully been destroyed!"
+      message: "Your task has successfully been destroyed!",
     });
   } catch (err) {
     res.status(500).json({
-      message: `Could not delete task: ${err}`
+      message: `Could not delete task: ${err}`,
     });
   }
 });
