@@ -59,7 +59,7 @@ router.get("/", async (req, res) => {
 });
 
 
-//! GET LIST BY TITLE
+//! GET LISTS BY TITLE
 router.get("/:title", (req, res) => {
   let title = req.params.title;
 
