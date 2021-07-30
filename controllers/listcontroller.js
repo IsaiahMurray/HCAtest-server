@@ -2,12 +2,10 @@ const router = require("express").Router();
 const { ListModel, TaskModel } = require("../models");
 const chalk = require("chalk");
 
-
 //! TEST ENDPOINT
 router.get("/test", function (req, res) {
   res.send("Hey!! This is the list route!");
 });
-
 
 //! CREATE LIST
 router.post("/create", async (req, res) => {
@@ -34,18 +32,17 @@ router.post("/create", async (req, res) => {
   }
 });
 
-
 //! GET ALL LISTS FROM SINGLE USER
 router.get("/", async (req, res) => {
   try {
     const allLists = await ListModel.findAll({
-      where: { owner: req.user.id }
-    })
+      where: { owner: req.user.id },
+    });
 
     if (allLists.length === 0 || null) {
       return res.status(204).json({
         message: "You do not have any lists yet. Go make some!",
-      })
+      });
     } else {
       return res.status(200).json({
         message: "Lists have successfully been retrieved",
@@ -59,36 +56,34 @@ router.get("/", async (req, res) => {
   }
 });
 
-
 //! GET ALL TASKS WITH SINGLE CORRESPONDING LIST BY ID
 router.get("/tasklist/:listId", async (req, res) => {
   try {
     const list = await ListModel.findOne({
-      where: { owner: req.user.id }
-    })
+      where: { owner: req.user.id },
+    });
 
     if (list.length === 0 || null) {
       return res.status(204).json({
         message: "You do not have any lists yet. Go make some!",
-      })
+      });
     } else {
       const tasks = await TaskModel.findAll({
-        where: {listId: req.params.listId}
-      })
-      if(tasks.length === 0 || null){
+        where: { listId: req.params.listId },
+      });
+      if (tasks.length === 0 || null) {
         return res.status(200).json({
           message: "You do not have any tasks for this list yet. Go make some!",
-          list
-        })
-      } else{
+          list,
+        });
+      } else {
         return res.status(200).json({
           message: "Lists and Tasks have successfully been retrieved!",
           list,
-          tasks
-        })
+          tasks,
+        });
       }
     }
-
   } catch (err) {
     res.status(500).json({
       message: `Lists and tasks could not be retrieved: ${err}`,
@@ -96,41 +91,6 @@ router.get("/tasklist/:listId", async (req, res) => {
   }
 });
 
-//! GET ALL TASKS WITH ALL CORRESPONDING LISTS
-router.get("/tasklist/:listId", async (req, res) => {
-  try {
-    const list = await ListModel.findOne({
-      where: { owner: req.user.id }
-    })
-
-    if (list.length === 0 || null) {
-      return res.status(204).json({
-        message: "You do not have any lists yet. Go make some!",
-      })
-    } else {
-      const tasks = await TaskModel.findAll({
-        where: {listId: req.params.listId}
-      })
-      if(tasks.length === 0 || null){
-        return res.status(200).json({
-          message: "You do not have any tasks for this list yet. Go make some!",
-          list
-        })
-      } else{
-        return res.status(200).json({
-          message: "Lists and Tasks have successfully been retrieved!",
-          list,
-          tasks
-        })
-      }
-    }
-
-  } catch (err) {
-    res.status(500).json({
-      message: `Lists and tasks could not be retrieved: ${err}`,
-    });
-  }
-});
 
 //! GET LIST BY TITLE
 router.get("/:title", (req, res) => {
@@ -148,9 +108,7 @@ router.get("/:title", (req, res) => {
     });
 });
 
-
 //! GET ALL TASKS WITH CORRESPONDING LIST BY TITLE
-
 
 //! UPDATE LIST BY ID
 router.put("/update/:id", (req, res) => {
@@ -167,7 +125,6 @@ router.put("/update/:id", (req, res) => {
     )
     .catch((err) => res.status(500).json({ error: err }));
 });
-
 
 //! DELETE LIST BY ID
 router.delete("/delete/:id", (req, res) => {
